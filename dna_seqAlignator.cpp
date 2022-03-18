@@ -2,6 +2,7 @@
 #include<algorithm>
 #include <bits/stdc++.h>
 #include <bits/stdc++.h>
+#include<fstream>
 using namespace std;
 
 struct salto {
@@ -183,9 +184,19 @@ int main() {
     // }
 
     // cout << endl;
-    cout << alignmentSeqA << endl;
-    cout << match << endl;
-    cout << alignmentSeqB;
+
+    ofstream output;
+    output.open("output");
+
+    output << alignmentSeqA << "\n";
+    output << match << "\n";
+    output << alignmentSeqB << "\n";
+
+    output.close();
+
+    // cout << alignmentSeqA << endl;
+    // cout << match << endl;
+    // cout << alignmentSeqB;
 
     return 0;
 }
