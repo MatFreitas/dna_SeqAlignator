@@ -1,7 +1,12 @@
 #include<iostream>
 #include<algorithm>
 #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
+
+struct salto {
+    string movimento;
+};
 
 int main() {
     // Inicializando tamanho n, m 
@@ -11,6 +16,8 @@ int main() {
 
     // Inicializando lista de movimentos
     string movimentos[n][m];
+    salto saltos[n][m];
+    // saltos<salto>[n][m];
 
     // Inicializando as seq. A e B
     string a, b;
@@ -18,11 +25,11 @@ int main() {
 
     // Adicionando o gap _
     a = "-" + a;
-    cout << a << endl;
+    // cout << a << endl;
     n++;
 
     b = "-" + b;
-    cout << b << endl;
+    // cout << b << endl;
     m++;
     
     // Matriz H a ser preenchida
@@ -36,7 +43,7 @@ int main() {
         }
     }
 
-    cout << endl;
+    // cout << endl;
 
     int seta = 0;
 
@@ -69,7 +76,6 @@ int main() {
             // 6. Calcular inserção
             insercao = H[i][j-1] - 1;
 
-
             // cout << diagonal << " " << delecao << " " << insercao << endl;
             // 7. Calcular H[i,j]=máximo (0, diagonal, deleção, inserção)
             H[i][j] = max({0, diagonal, delecao, insercao});
@@ -77,12 +83,24 @@ int main() {
             // Guardando movimento
             if(H[i][j] == 0) {
                movimentos[i-1][j-1] = "nenh";
+               salto jump;
+               jump.movimento = "nenh";
+               saltos[i-1][j-1] = jump;
             } else if(H[i][j] == diagonal) {
                 movimentos[i-1][j-1] = "diag";
+                salto jump;
+                jump.movimento = "diag";
+                saltos[i-1][j-1] = jump;
             } else if(H[i][j] == delecao) {
                 movimentos[i-1][j-1] = "cima";
+                salto jump;
+                jump.movimento = "cima";
+                saltos[i-1][j-1] = jump;
             } else if(H[i][j] == insercao) {
                 movimentos[i-1][j-1] = "esqu";
+                salto jump;
+                jump.movimento = "esqu";
+                saltos[i-1][j-1] = jump;
             }
 
             // 8. Retornar o máximo de H[_,_]
@@ -101,12 +119,13 @@ int main() {
 
     string alignmentSeqA, alignmentSeqB, match;
 
-    cout << "Movimentos:" << endl;
+    // cout << "Movimentos:" << endl;
+
     while(maxValor_i >= 0 && maxValor_j >= 0) {
-        if(movimentos[maxValor_i][maxValor_j] == "nenh") {
+        if(saltos[maxValor_i][maxValor_j].movimento == "nenh") {
             break;
         }
-        else if(movimentos[maxValor_i][maxValor_j] == "diag") {
+        else if(saltos[maxValor_i][maxValor_j].movimento == "diag") {
             maxValor_i--;
             maxValor_j--;
 
@@ -114,25 +133,25 @@ int main() {
             alignmentSeqB += b[maxValor_j+2];
             match += "*";
 
-            cout << "diag" << endl;
+            // cout << "diag" << endl;
         }
-        else if(movimentos[maxValor_i][maxValor_j] == "esqu") {
+        else if(saltos[maxValor_i][maxValor_j].movimento == "esqu") {
             maxValor_j--;
 
             alignmentSeqA += "_";
             alignmentSeqB += b[maxValor_j+2];
             match += " ";
 
-            cout << "esqu" << endl;
+            // cout << "esqu" << endl;
         }
-        else if(movimentos[maxValor_i][maxValor_j] == "cima") {
+        else if(saltos[maxValor_i][maxValor_j].movimento == "cima") {
             maxValor_i--;
 
             alignmentSeqA += a[maxValor_i+2];
             alignmentSeqB += "_";
             match += " ";
 
-            cout << "cima" << endl;
+            // cout << "cima" << endl;
         }
     }
 
@@ -141,32 +160,32 @@ int main() {
     reverse(match.begin(), match.end());
 
     // Prints
-    cout << endl;
+    // cout << endl;
 
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < m; j++) {
-            cout << H[i][j] << " ";
-        }
-        cout<< endl;
-    }
+    // for(int i = 0; i < n; i++) {
+    //     for(int j = 0; j < m; j++) {
+    //         cout << H[i][j] << " ";
+    //     }
+    //     cout<< endl;
+    // }
 
-    cout << endl << "MaxValor   : " << maxValor << endl;
-    cout << endl;
+    // cout << endl << "MaxValor   : " << maxValor << endl;
+    // cout << endl;
 
 
-    int k = 0;
-    for(int i = 0; i < n-1; i++) {
-        for(int j = 0; j < m-1; j++) {
-            cout << movimentos[i][j] << " ";
-            k++;
-        }
-        cout<< endl;
-    }
+    // int k = 0;
+    // for(int i = 0; i < n-1; i++) {
+    //     for(int j = 0; j < m-1; j++) {
+    //         cout << saltos[i][j].movimento << " ";
+    //         k++;
+    //     }
+    //     cout<< endl;
+    // }
 
-    cout << endl;
+    // cout << endl;
     cout << alignmentSeqA << endl;
     cout << match << endl;
-    cout << alignmentSeqB << endl;
+    cout << alignmentSeqB;
 
     return 0;
 }
