@@ -1,11 +1,33 @@
 #include<iostream>
 #include<algorithm>
 #include <bits/stdc++.h>
-#include <bits/stdc++.h>
 #include<fstream>
 #include<random>
 #include <string.h>
 using namespace std;
+
+// Function to print all sub strings
+vector<string> subString(string str, int n) {
+    vector<string> str_combinations; 
+
+    // Pick starting point
+    for (int len = 1; len <= n; len++) {
+        string substring;
+
+        // Pick ending point
+        for (int i = 0; i <= n - len; i++) {
+            int j = i + len - 1;           
+            for (int k = i; k <= j; k++) {
+                substring += str[k];
+            }
+
+            str_combinations.push_back(substring);
+            substring.clear();
+        }
+    }
+
+    return str_combinations;
+}
 
 int algorithmLocalAlignment(int n, int m, string a, string b, uint seed) {
     int max_k;
@@ -50,11 +72,11 @@ int algorithmLocalAlignment(int n, int m, string a, string b, uint seed) {
     uniform_int_distribution<int> distribution_i(0, max_i);
 
 
-    // cout << "sb: " << sb << endl;
-    // cout << "k: " << k << endl;
-    // cout << "j: " << j << endl;
-    // cout << "max_j: " << max_j << endl;
-    // cout << "max_i: " << max_i << endl;
+    cout << "sb: " << sb << endl;
+    cout << "k: " << k << endl;
+    cout << "j: " << j << endl;
+    cout << "max_j: " << max_j << endl;
+    cout << "max_i: " << max_i << endl;
     
     // Adicionando gap no sb
     sb = "-" + sb;
@@ -177,10 +199,24 @@ int main() {
     cout << "a: " << a << endl;
     cout << "b: " << b << endl;
 
+    vector<string> a_combinations = subString(a, a.size());
+    vector<string> b_combinations = subString(b, b.size());
+
+    // for(uint i = 0; i < b_combinations.size(); i++) {
+    //     cout << b_combinations[i] << endl;
+    // }
+
+
     int seed = 13607;
     for(int i = 0; i < 10; i++) {
-        algorithmLocalAlignment(n, m, a, b, seed);
-        seed++;
+        for(uint i = 0; i < a_combinations.size(); i++) {
+            for(uint j = 0; j < b_combinations.size(); j++) {
+                n = a_combinations[i].size();
+                m = b_combinations[j].size();
+                algorithmLocalAlignment(n, m, a_combinations[i], b_combinations[j], seed);
+                seed++;
+            }
+        }
     }
     return 0;
 }
