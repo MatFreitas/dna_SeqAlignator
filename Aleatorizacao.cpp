@@ -93,7 +93,7 @@ result algorithmLocalAlignment(int n, int m, string a, string b, uint seed) {
         n = sa.size();
         
         // Matriz H a ser preenchida
-        int H[n][m];
+        vector<vector<int>> H(n, vector<int>(m, 0));
 
         // Inicializar matriz com 0s.
         for(int i = 0; i < n; i++) {
@@ -209,8 +209,7 @@ int main() {
         seed++;
     }
 
-    cout << "Melhor resultado:" << endl;
-    cout << bestResult.score << endl;
+    cout << "Melhor resultado: " << bestResult.score << endl;
     cout << bestResult.sa << endl;
     cout << bestResult.sb << endl;
     

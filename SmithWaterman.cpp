@@ -17,8 +17,9 @@ int main() {
     cin >> n >> m;
 
     // Inicializando lista de movimentos
-    // int movimentos[n][m];
-    salto saltos[n][m];
+    salto path;
+    path.movimento = 0;
+    vector<vector<salto>> saltos(n, vector<salto>(m, path));
 
     // Inicializando as seq. A e B
     string a, b;
@@ -34,7 +35,7 @@ int main() {
     m++;
     
     // Matriz H a ser preenchida
-    int H[n][m];
+    vector<vector<int>> H(n, vector<int>(m, 0));
 
 
     // Inicializar matriz com 0s.
@@ -124,7 +125,6 @@ int main() {
     maxValor_j--;
 
     string alignmentSeqA, alignmentSeqB, match;
-    vector<string> seqA, seqB;
 
     // cout << "Movimentos:" << endl;
 
@@ -166,14 +166,15 @@ int main() {
     // reverse(alignmentSeqB.begin(), alignmentSeqB.end());
     // reverse(match.begin(), match.end());
 
-    
+    cout << "Melhor Resultado: " << maxValor << endl;
+
     for(int i = alignmentSeqA.size() - 1; i >= 0; i--) {
         cout << alignmentSeqA[i];
     }
 
     cout << endl;
 
-    cout << match << endl;
+    // cout << match << endl;
     
     for(int i = alignmentSeqB.size() - 1; i >= 0; i--) {
         cout << alignmentSeqB[i];

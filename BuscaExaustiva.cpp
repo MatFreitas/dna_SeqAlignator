@@ -114,7 +114,7 @@ result algorithmLocalAlignment(int n, int m, string a, string b, uint seed) {
         n = sa.size();
         
         // Matriz H a ser preenchida
-        int H[n][m];
+        vector<vector<int>> H(n, vector<int>(m, 0));
 
         // Inicializar matriz com 0s.
         for(int i = 0; i < n; i++) {
@@ -243,10 +243,9 @@ int main() {
         }
     }
 
-    cout << "Melhor resultado" << endl << endl;
-    cout << "Score alinhamento: " << bestResult.score << endl;
-    cout << "Subsequência A:    " << bestResult.sa.substr(1, bestResult.sa.size()) << endl;
-    cout << "Subsequência B:    " << bestResult.sb.substr(1, bestResult.sb.size()) << endl;
+    cout << "Melhor resultado: " << bestResult.score << endl;
+    cout << bestResult.sa.substr(1, bestResult.sa.size()) << endl;
+    cout << bestResult.sb.substr(1, bestResult.sb.size()) << endl;
 
     return 0;
 }

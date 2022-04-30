@@ -97,8 +97,7 @@ int main() {
         }
     }
 
-    cout << "Melhor resultado:" << endl;
-    cout << bestResult.score << endl;
+    cout << "Melhor resultado: " << bestResult.score << endl;
     cout << bestResult.sa << endl;
     cout << bestResult.sb << endl;
     
