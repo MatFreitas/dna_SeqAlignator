@@ -140,7 +140,6 @@ int main() {
         H[e].resize(m+1);
     }
     
-    #pragma omp parallel for firstprivate(n, m, H)
     for(uint i = 0; i < results.size(); i++) {
         n = results[i].sa.size();
         m = results[i].sb.size();
